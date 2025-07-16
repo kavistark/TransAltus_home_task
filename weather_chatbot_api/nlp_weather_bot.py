@@ -2,9 +2,12 @@ import requests
 import re
 from datetime import datetime, timedelta
 import spacy
-
-# Load spaCy NLP model
-nlp = spacy.load("en_core_web_sm")
+try:
+    nlp = spacy.load("en_core_web_sm")
+except OSError:
+    from spacy.cli import download
+    download("en_core_web_sm")
+    nlp = spacy.load("en_core_web_sm")
 
 # OpenWeatherMap API key
 API_KEY = "e11bd703e4344f17e1a8ec69bda5c760"
